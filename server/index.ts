@@ -4,6 +4,7 @@ import * as bodyParser from "body-parser";
 import next from "next";
 import "./env"
 import routes from "./routes";
+import "./cron";
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
