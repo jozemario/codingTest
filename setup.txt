@@ -1,0 +1,212 @@
+
+npm init -y
+npm install react react-dom next --save
+
+Add the following scripts to package.json:
+"scripts": {
+  "dev": "next",
+  "build": "next build",
+  "start": "next start"
+}
+
+mkdir -p src/pages
+touch src/pages/index.js
+
+
+Configure Typescript
+
+touch tsconfig.json
+
+npm install --save-dev typescript @types/react @types/node
+mv src/pages/index.js src/pages/index.tsx
+
+npm run dev
+
+Set up Express
+When you run npm run dev, basically Next.js starts its own server but it’s possible to handle it programmatically with your own Express server.
+We need to install express and its Typescript definitions:
+npm install express --save
+npm install --save-dev @types/express ts-node
+
+mkdir -p server
+touch server/index.ts
+
+
+Let’s edit the dev script in package.json:
+"scripts": {
+   "dev": "ts-node server/index.ts",
+   ...
+}
+
+ts-node is a TypeScript execution and REPL for node.js, with source map support. (source)
+Now run npm run dev. But oops, we got an error:
+
+
+The problem comes from tsconfig.json, there is a line "module": "esnext". Typically, Next.js forces TS compiling with the ESNext pattern but express was built on the commonjs pattern. If you change the value from esnext to commonjs, Next.js will automatically revert it back.
+To come over this issue, let’s create another config file:
+
+touch tsconfig.server.json
+
+
+To breakdown:
+"extends": "./tsconfig.json": Gets all options from tsconfig.json
+"compilerOptions.module": "commonjs": Use commonjs as the module pattern in order to make both express and next work together.
+"compilerOptions.outDir": "dist": This option is used for production. It will compile all .ts files in the server directory to .js and send to the dist directory.
+"compilerOptions.noEmit": true: This option is used for production. Next.js basically uses babel to compile Typescript so TS compiler won’t output .js . We will override this value to tell TS compiler compile and output our server files.
+"include": ["server"]: This option is also used for production. It lets the TS Compiler know only compiling .ts files in the server/ directory.
+
+We’re gonna use this config for local development. Now we need to edit the dev script again:
+"dev": "ts-node --project tsconfig.server.json server/index.ts"
+
+Additionally, when you visit an unknown page say http://localhost:3000/no-exist-page, you will get Internal Server Error instead of a message like 404 not found. This because Next.js no longer handles errors when integrating with a custom server.
+The solution is to create a custom error page:
+touch src/pages/_error.tsx
+
+
+Let’s go production
+Before spinning up the server in production mode, we need to compile both Next.js and server code to .js. Now, modify scripts in package.json:
+"scripts": {
+    "build:server": "tsc --project tsconfig.server.json",
+    "build:next": "next build",
+    "build": "npm run build:next && npm run build:server",
+    "start": "NODE_ENV=production node dist/index.js"
+}
+Breakdown:
+build:server: Build server code to dist directory
+build:next: Build the Next.js application
+build: Run both build:server and build:next
+start: Run the server. It runs node dist/index.js instead of next start because now we let experss handle the server.
+Let’s build all the stuff by running npm run build and you should see the result like this:
+
+npm run build
+
+Now run npm start and let’s see our application working in production:
+
+npm start
+
+
+----------
+generate secret
+openssl rand -hex 32
+
+----
+auth nextjs
+
+npm install --save next-auth
+
+----
+test
+
+npm run dev
+
+
+----
+mysql db schema
+
+CREATE TABLE accounts
+  (
+    id                   INT NOT NULL AUTO_INCREMENT,
+    compound_id          VARCHAR(255) NOT NULL,
+    user_id              INTEGER NOT NULL,
+    provider_type        VARCHAR(255) NOT NULL,
+    provider_id          VARCHAR(255) NOT NULL,
+    provider_account_id  VARCHAR(255) NOT NULL,
+    refresh_token        TEXT,
+    access_token         TEXT,
+    access_token_expires TIMESTAMP(6),
+    created_at           TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    updated_at           TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    PRIMARY KEY (id)
+  );
+
+CREATE TABLE sessions
+  (
+    id            INT NOT NULL AUTO_INCREMENT,
+    user_id       INTEGER NOT NULL,
+    expires       TIMESTAMP(6) NOT NULL,
+    session_token VARCHAR(255) NOT NULL,
+    access_token  VARCHAR(255) NOT NULL,
+    created_at    TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    updated_at    TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    PRIMARY KEY (id)
+  );
+
+CREATE TABLE users
+  (
+    id             INT NOT NULL AUTO_INCREMENT,
+    name           VARCHAR(255),
+    email          VARCHAR(255),
+    email_verified TIMESTAMP(6),
+    image          VARCHAR(255),
+    created_at     TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    updated_at     TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    PRIMARY KEY (id)
+  );
+
+CREATE TABLE verification_requests
+  (
+    id         INT NOT NULL AUTO_INCREMENT,
+    identifier VARCHAR(255) NOT NULL,
+    token      VARCHAR(255) NOT NULL,
+    expires    TIMESTAMP(6) NOT NULL,
+    created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    updated_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    PRIMARY KEY (id)
+  );
+
+CREATE UNIQUE INDEX compound_id
+  ON accounts(compound_id);
+
+CREATE INDEX provider_account_id
+  ON accounts(provider_account_id);
+
+CREATE INDEX provider_id
+  ON accounts(provider_id);
+
+CREATE INDEX user_id
+  ON accounts(user_id);
+
+CREATE UNIQUE INDEX session_token
+  ON sessions(session_token);
+
+CREATE UNIQUE INDEX access_token
+  ON sessions(access_token);
+
+CREATE UNIQUE INDEX email
+  ON users(email);
+
+CREATE UNIQUE INDEX token
+  ON verification_requests(token);
+
+-------------
+encryption of jwt 
+
+@jayliew Assuming you're talking about the next-auth-example and have done no modifications aside from what you mention in that post, then you need to add additional parameters when you call jwt.getToken (so update this page in the example)
+
+Per https://next-auth.js.org/configuration/options#jwt (emphasis added):
+
+The getToken() helper requires the following options:
+
+req - (object) Request object
+secret - (string) JWT Secret
+
+You must also pass any options configured on the jwt option to the helper.
+
+e.g. Including custom session maxAge and custom signing and/or encryption keys or options
+
+So anything you include in the jwt object in [...nextauth].js: needs to be passed to the call. It's all passed as one object, so order doesn't matter but the property name does. In practice that would look like:
+
+// Ideally these values would be in your .env.local (or whatever) file:
+const encryption = true,
+const signingKey = '{"kty":"oct","kid":"N3XHc3Yy [** SNIP **] SXh9igamUr0","alg":"HS512","k":"MDBwE [** SNIP **] DPgdYUXRQ4"}', // npx node-jose-tools newkey -s 256 -t oct -a HS512
+const encryptionKey = '{"kty":"oct","kid":"ouRBLOiCuKyAos [** SNIP **] xrrJwK24","alg":"A256GCM","k":"9NtdI1sk7W [** SNIP **] 4WDLUaVDeg"}', // node-jose-tools newkey -s 256 -t oct -a A256GCM
+const secret = 'SYkp4S6ZhU/09XEWRtDA [** SNIP **] VwdwsP//EclhNA==', // openssl rand -base64 64
+
+jwt.getToken({
+  req, secret, signingKey, encryptionKey, encryption,
+})
+
+----------------------
+
+
+  ----------
