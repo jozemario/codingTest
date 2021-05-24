@@ -105,6 +105,18 @@ const callbacks = {
     console.log('callbacks session',session, token);
     session.accessToken = token.accessToken
     return session
+  },
+
+  /**
+   * @param  {string} url      URL provided as callback URL by the client
+   * @param  {string} baseUrl  Default base URL of site (can be used as fallback)
+   * @return {string}          URL the client will be redirect to
+   */
+  async redirect(url, baseUrl) {
+    console.log('callbacks redirect',url, baseUrl);
+    return url.startsWith(baseUrl)
+      ? url
+      : baseUrl
   }
   // async signIn(user, account, profile) { return true },
     /**
