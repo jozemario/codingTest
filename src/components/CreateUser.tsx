@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const CreateUser = ({onChangeForm, createUser }) => {
+const CreateUser = ({user, onChangeForm, createUser }) => {
 
 
     return(

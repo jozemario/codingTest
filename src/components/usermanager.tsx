@@ -7,7 +7,7 @@ import { getAllUsers, createUser } from '../services/UserService'
 
 
 
-type Props = {
+/*type Props = {
     children: React.ReactNode
 }
 
@@ -18,7 +18,7 @@ const connect = function (Component: React.FC): React.FC<Props> {
 
     return ComponentWrapper;
 };
-
+*/
 
 
 class UserManager extends Component {
@@ -69,15 +69,13 @@ class UserManager extends Component {
                   user={this.state.user}
                   onChangeForm={this.onChangeForm}
                   createUser={this.createUser}
-                  >
-                </CreateUser>
+                 />
             </div>
             <div className="col-md-4">
                 <DisplayBoard
                   numberOfUsers={this.state.numberOfUsers}
                   getAllUsers={this.getAllUsers}
-                >
-                </DisplayBoard>
+                />
             </div>
           </div>
         </div>
@@ -91,4 +89,4 @@ class UserManager extends Component {
 
 
 
-//export default UserManager;
+export default UserManager;

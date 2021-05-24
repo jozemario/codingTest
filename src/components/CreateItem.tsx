@@ -12,20 +12,20 @@ const CreateItem = ({onChangeForm, createItem ,type}) => {
                 <form>
                     <div className="row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputEmail1">First Name</label>
-                            <input type="text" onChange={(e) => onChangeForm(e)}  className="form-control" name="firstname" id="firstname" aria-describedby="emailHelp" placeholder="First Name" />
+                            <label htmlFor="exampleInputName">Name</label>
+                            <input type="text" onChange={(e) => onChangeForm(e)}  className="form-control" name="name" id="name" aria-describedby="Name" placeholder="Name" />
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputPassword1">Last Name</label>
-                            <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="lastname" id="lastname" placeholder="Last Name" />
+                            <label htmlFor="exampleInputCategory">Category</label>
+                            <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="category" id="category" placeholder="Category" />
                         </div>
                     </div>
-                    <div className="row">
+                    {/*<div className="row">
                         <div className="form-group col-md-12">
                             <label htmlFor="exampleInputEmail1">Email</label>
                             <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email" />
                         </div>
-                    </div>
+                    </div>*/}
                     <button type="button" onClick= {(e) => createItem()} className="btn btn-danger">Create</button>
                 </form>
                 </div>

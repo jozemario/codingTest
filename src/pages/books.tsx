@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/client'
 import Layout from '../components/layout'
 import AccessDenied from '../components/access-denied'
-import BookManager from '../components/bookmanager'
 import { ItemList } from '../components/ItemList'
 import { ItemsDisplayBoard } from '../components/ItemsDisplayBoard'
 import CreateItem from '../components/CreateItem'
@@ -14,7 +13,7 @@ export default function Books () {
   const [ content , setContent ] = useState()
   const [items, setItems] = useState([])
   const [numberOfItems, setNumberOfItems] = useState();
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState({name:'',category:''});
 
  
   const type = "books"
@@ -81,12 +80,11 @@ export default function Books () {
             <div className="col-md-8">
 
       <CreateItem 
-                  item={item}
+                  //item={item}
                   onChangeForm={onChangeForm}
                   createItem={createItem}
                   type={type}
-                  >
-                </CreateItem>
+                  />
   {/*  <BookManager/>*/}
     </div>
     <div className="col-md-4">
@@ -96,8 +94,7 @@ export default function Books () {
         getAllItems={handleClick}
         type={type}
 
-      >
-      </ItemsDisplayBoard>
+      />
          {/* <div className="display-board">
                   <h4>Items {type}</h4>
                   <div className="number">

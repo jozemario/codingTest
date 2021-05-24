@@ -21,6 +21,8 @@ const sendPostRequest = async (creds) => {
     }
 };
 
+export type Theme = "auto" | "dark" | "light"
+
 const providers = [
   Providers.Credentials({
     name: 'Email and Password',
@@ -232,10 +234,10 @@ const options = {
   async session(message) {console.log('event: ',message) /* session is active */ },
   async error(message) {console.log('event: ',message) /* error in authentication flow */ }
   },
-
+ // theme: "light",
   // Enable debug messages in the console if you are having problems
-  debug: true,
-  theme: 'light'
+  debug: false
 }
+
 
 export default (req, res) => NextAuth(req, res, options)
