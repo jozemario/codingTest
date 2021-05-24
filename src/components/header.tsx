@@ -92,7 +92,7 @@ export default function Header() {
             </Link>
           </li>*/}
           <li className={styles.navItem}>
-            <Link href="/api-example">
+            <Link href="/api-frontend">
               <a>API</a>
             </Link>
           </li>
