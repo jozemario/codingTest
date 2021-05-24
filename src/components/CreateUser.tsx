@@ -12,18 +12,18 @@ const CreateUser = ({onChangeForm, createUser }) => {
                 <form>
                     <div className="row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputEmail1">First Name</label>
-                            <input type="text" onChange={(e) => onChangeForm(e)}  className="form-control" name="firstname" id="firstname" aria-describedby="emailHelp" placeholder="First Name" />
+                            <label htmlFor="exampleInputEmail">Email</label>
+                            <input type="text" onChange={(e) => onChangeForm(e)}  className="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email" />
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputPassword1">Last Name</label>
-                            <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="lastname" id="lastname" placeholder="Last Name" />
+                            <label htmlFor="exampleInputName">Name</label>
+                            <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="name" id="name" placeholder="Name" />
                         </div>
                     </div>
                     <div className="row">
                         <div className="form-group col-md-12">
-                            <label htmlFor="exampleInputEmail1">Email</label>
-                            <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email" />
+                            <label htmlFor="exampleInputPassword">Password</label>
+                            <input type="password" onChange={(e) => onChangeForm(e)} className="form-control" name="password" id="password" aria-describedby="emailHelp" placeholder="Password" />
                         </div>
                     </div>
                     <button type="button" onClick= {(e) => createUser()} className="btn btn-danger">Create</button>

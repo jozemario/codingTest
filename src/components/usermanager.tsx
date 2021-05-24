@@ -8,7 +8,7 @@ import { getAllUsers, createUser } from '../services/UserService'
 class UserManager extends Component {
 
   state = {
-    user: {},
+    user: {email:'',name:'',password:''},
     users: [],
     numberOfUsers: 0
   }
@@ -31,10 +31,10 @@ class UserManager extends Component {
 
   onChangeForm = (e) => {
       let user = this.state.user
-      if (e.target.name === 'firstname') {
-          user.firstName = e.target.value;
+      if (e.target.name === 'name') {
+          user.email = e.target.value;
       } else if (e.target.name === 'lastname') {
-          user.lastName = e.target.value;
+          user.password = e.target.value;
       } else if (e.target.name === 'email') {
           user.email = e.target.value;
       }
