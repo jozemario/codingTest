@@ -46,7 +46,11 @@ class BookManager extends Component {
   render() {
       console.log('this.props: ', this.props)
     return (
- 
+      <div className="App">
+        
+        <div className="container mrgnbtm">
+          <div className="row">
+            <div className="col-md-8">
                 <CreateItem 
                   item={this.state.item}
                   onChangeForm={this.onChangeForm}
@@ -68,7 +72,7 @@ class BookManager extends Component {
           </div>
         </div>
         <div className="row mrgnbtm">
-          <ItemList items={this.state.items} type={this.state.type}></ItemList>
+          <ItemList items={this.state.items} type={this.state.type} numberOfItems={this.state.numberOfItems} getAllItems={this.getAllItems}></ItemList>
         </div>
       </div>
     );
