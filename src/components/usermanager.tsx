@@ -5,6 +5,22 @@ import { DisplayBoard } from './DisplayBoard'
 import CreateUser from './CreateUser'
 import { getAllUsers, createUser } from '../services/UserService'
 
+
+
+type Props = {
+    children: React.ReactNode
+}
+
+const connect = function (Component: React.FC): React.FC<Props> {
+    const ComponentWrapper = function (props: Props): JSX.Element {
+        return <UserManager {...props} />;
+    };
+
+    return ComponentWrapper;
+};
+
+
+
 class UserManager extends Component {
 
   state = {
@@ -75,4 +91,4 @@ class UserManager extends Component {
 
 
 
-export default UserManager;
+//export default UserManager;
