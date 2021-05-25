@@ -19,6 +19,10 @@ const CreateItem = ({onChangeForm, createItem ,type}) => {
                             <label htmlFor="exampleInputCategory">Category</label>
                             <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="category" id="category" placeholder="Category" />
                         </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="exampleInputIsbn">ISBN</label>
+                            <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="isbn" id="isbn" placeholder="ISBN" />
+                        </div>
                     </div>
                     {/*<div className="row">
                         <div className="form-group col-md-12">

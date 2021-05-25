@@ -8,7 +8,7 @@ import CreateItem from '../components/CreateItem'
 import { createItem } from '../services/ItemsService'
 
 
-export default function Books () {
+export default function Categories () {
   const [ session, loading ] = useSession()
   const [ content , setContent ] = useState()
   const [items, setItems] = useState([])
@@ -16,7 +16,7 @@ export default function Books () {
   const [item, setItem] = useState({name:'',category:'',isbn:''});
 
  
-  const type = "books"
+  const type = "bookCategories"
 
 
   // Fetch content from protected route
@@ -57,11 +57,11 @@ export default function Books () {
       let item = this.state.item
       if (e.target.name === 'name') {
           item.name = e.target.value;
-      } else if (e.target.category === 'category') {
+      } /*else if (e.target.category === 'category') {
           item.category = e.target.value;
       } else if (e.target.isbn === 'isbn') {
           item.isbn = e.target.value;
-      }
+      }*/
       setItem(item);
   }
 

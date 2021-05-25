@@ -141,8 +141,10 @@ export default async function handler(
   //const encryption = true
 
   //const token = await getToken({ req, secret,encryption })
-
-  console.log('getSession: ',session.user)
+  if (session){
+    console.log('getSession: ',session.user)
+  }
+  
   //console.log('getToken: ',token.user)
 
 

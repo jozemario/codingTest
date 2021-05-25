@@ -15,7 +15,7 @@ export default async function protectedHandler(
 
   console.log('getSession: ',session.user)
 
-  if (session && session.user.email=="admin@talos.com") {
+  if (session && session.user.email===process.env.ADMIN) {
       return res.send({ content: 'This is admin content. Welcome ' + session.user.email + '(admin)'})
   } else
   if (session) {

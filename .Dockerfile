@@ -9,4 +9,4 @@ COPY --from=ui-build /home/CodingTest/ ./CodingTest/
 
 EXPOSE 3000
 
-CMD ["npm", "run","build"]
+CMD ["npm", "start"]

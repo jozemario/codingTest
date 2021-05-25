@@ -19,7 +19,7 @@ router.get("/user", (req: Request, res: Response) => {
 
 router.post("/login", (req: Request, res: Response) => signIn(req,res));
 
-router.get("/users", (req: Request, res: Response) => findAllUsers(req,res));
+//router.get("/users", (req: Request, res: Response) => findAllUsers(req,res));
 
 export default router;
 
@@ -54,7 +54,7 @@ export async function createUser({ email, password }) {
     return user;
 }
 
-//createUser({email:'admin@talos.com',password:'talos'})
+//createUser({email:'admin@talos.com',password:'admin'})
 //createUser({email:'user@talos.com',password:'user'})
 
 

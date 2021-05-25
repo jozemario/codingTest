@@ -1,8 +1,12 @@
 import React from 'react'
 import { deleteItem } from '../services/ItemsService'
+//import { useSession } from 'next-auth/client'
 
 
 export const ItemList = ({items,type,numberOfItems,getAllItems}) => {
+
+    //const [ session, loading ] = useSession()
+
     console.log('items :::', items,type)
     console.log('items length:::', items.length)
     if (items.length === 0) return null
@@ -17,7 +21,9 @@ export const ItemList = ({items,type,numberOfItems,getAllItems}) => {
                     ))}
                  {/* <td>{item.name}</td>
                   <td>{item.category}</td>*/}
-                  <td><button 
+                  <td>
+                    
+                      <button 
                       type="button" 
                       onClick= { (e) => {
                         deleteItem(item.id,type)
@@ -27,7 +33,8 @@ export const ItemList = ({items,type,numberOfItems,getAllItems}) => {
                         
                           } 
                         } 
-                    className="btn btn-danger">Delete</button></td>
+                    className="btn btn-danger">Delete</button>
+                    </td>
                   
               </tr>
           )
