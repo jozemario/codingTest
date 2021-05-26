@@ -13,7 +13,9 @@ export default async function protectedHandler(
 
   const session = await getSession({ req })
 
-  console.log('getSession: ',session.user)
+  if (session) {
+    console.log('getSession: ',session.user)
+  }
 
   if (session && session.user.email===process.env.ADMIN) {
       return res.send({ content: 'This is admin content. Welcome ' + session.user.email + '(admin)'})

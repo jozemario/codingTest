@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const CreateItem = ({onChangeForm, createItem ,type}) => {
+const CreateItem = ({item,onChangeForm, createItem ,type}) => {
 
 
     return(

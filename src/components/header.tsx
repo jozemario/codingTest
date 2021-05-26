@@ -87,6 +87,11 @@ export default function Header() {
             </Link>
           </li>
           <li className={styles.navItem}>
+            <Link href="/posts">
+              <a>Posts</a>
+            </Link>
+          </li>
+          <li className={styles.navItem}>
             <Link href="/protected">
               <a>Protected</a>
             </Link>
@@ -99,6 +104,11 @@ export default function Header() {
           <li className={styles.navItem}>
             <Link href="/api-frontend">
               <a>API</a>
+            </Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link href="/socketclient">
+              <a>SocketIO</a>
             </Link>
           </li>
           <li className={styles.navItem}>

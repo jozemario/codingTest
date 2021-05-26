@@ -1,6 +1,7 @@
 export async function getAllUsers() {
-
-    const response = await fetch('/api/users');
+	console.log('getAllUsers /api/private/users')
+    //const response = await fetch('/api/users');//with express api route
+    const response = await fetch('/api/private/users');
     return await response.json();
 }
 

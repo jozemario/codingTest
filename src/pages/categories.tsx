@@ -18,17 +18,25 @@ export default function Categories () {
  
   const type = "bookCategories"
 
+  const fetchData = async () => {
+      const res = await fetch(`/api/private/${type}`)
+      const json = await res.json()
+      if (json) { 
+          setItems(json); 
+          setNumberOfItems(json.length); 
+          }
+    }
 
   // Fetch content from protected route
   useEffect(()=>{
-    const fetchData = async () => {
+    /*const fetchData = async () => {
       const res = await fetch(`/api/private/${type}`)
       const json = await res.json()
       if (json) { 
           setItems(json);
           setNumberOfItems(json.length); 
           }
-    }
+    }*/
     fetchData()
   },[session])
 
@@ -40,14 +48,7 @@ export default function Categories () {
 
   // If session exists, display content
   
-  const fetchData = async () => {
-      const res = await fetch(`/api/private/${type}`)
-      const json = await res.json()
-      if (json) { 
-          setItems(json); 
-          setNumberOfItems(json.length); 
-          }
-    }
+  
   const handleClick = (event) => {
           //event.preventDefault();
           fetchData();
@@ -82,7 +83,7 @@ export default function Categories () {
 
               {/*{session.user.email===process.env.ADMIN &&*/}
                 <CreateItem 
-                  //item={item}
+                  item={item}
                   onChangeForm={onChangeForm}
                   createItem={createItem}
                   type={type}
@@ -92,7 +93,7 @@ export default function Categories () {
     </div>
     <div className="col-md-4">
         <ItemsDisplayBoard
-
+        items={items}
         numberOfItems={numberOfItems}
         getAllItems={handleClick}
         type={type}

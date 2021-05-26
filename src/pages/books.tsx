@@ -18,17 +18,26 @@ export default function Books () {
  
   const type = "books"
 
+  const fetchData = async () => {
+      const res = await fetch(`/api/private/${type}`)
+      const json = await res.json()
+      if (json) { 
+          setItems(json); 
+          setNumberOfItems(json.length); 
+          }
+    }
+
 
   // Fetch content from protected route
   useEffect(()=>{
-    const fetchData = async () => {
+    /*const fetchData = async () => {
       const res = await fetch(`/api/private/${type}`)
       const json = await res.json()
       if (json) { 
           setItems(json);
           setNumberOfItems(json.length); 
           }
-    }
+    }*/
     fetchData()
   },[session])
 
@@ -40,14 +49,7 @@ export default function Books () {
 
   // If session exists, display content
   
-  const fetchData = async () => {
-      const res = await fetch(`/api/private/${type}`)
-      const json = await res.json()
-      if (json) { 
-          setItems(json); 
-          setNumberOfItems(json.length); 
-          }
-    }
+  
   const handleClick = (event) => {
           //event.preventDefault();
           fetchData();
@@ -57,9 +59,9 @@ export default function Books () {
       let item = this.state.item
       if (e.target.name === 'name') {
           item.name = e.target.value;
-      } else if (e.target.category === 'category') {
+      } else if (e.target.name === 'category') {
           item.category = e.target.value;
-      } else if (e.target.isbn === 'isbn') {
+      } else if (e.target.name === 'isbn') {
           item.isbn = e.target.value;
       }
       setItem(item);
@@ -82,7 +84,7 @@ export default function Books () {
 
               {/*{session.user.email===process.env.ADMIN &&*/}
                 <CreateItem 
-                  //item={item}
+                  item={item}
                   onChangeForm={onChangeForm}
                   createItem={createItem}
                   type={type}
@@ -92,7 +94,7 @@ export default function Books () {
     </div>
     <div className="col-md-4">
         <ItemsDisplayBoard
-
+        items={items}
         numberOfItems={numberOfItems}
         getAllItems={handleClick}
         type={type}

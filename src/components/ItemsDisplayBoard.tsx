@@ -1,6 +1,7 @@
 import React from 'react'
+import ExportCSV from './ExportCSV'
 
-export const ItemsDisplayBoard = ({numberOfItems, getAllItems, type}) => {
+export const ItemsDisplayBoard = ({items,numberOfItems, getAllItems, type}) => {
     
     return(
         <div className="display-board">
@@ -10,6 +11,10 @@ export const ItemsDisplayBoard = ({numberOfItems, getAllItems, type}) => {
             </div>
             <div className="btn">
                 <button type="button" onClick={(e) => getAllItems()} className="btn btn-warning">Get all Items</button>
+                
+            </div>
+            <div className="btn">
+            <ExportCSV csvData={items} fileName={type} />
             </div>
         </div>
     )

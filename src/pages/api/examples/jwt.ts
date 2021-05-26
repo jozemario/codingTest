@@ -7,5 +7,7 @@ const encryption = true
 
 export default async function jwt(req: NextApiRequest, res: NextApiResponse) {
   const token = await getToken({ req, secret,encryption })
+  
+  console.log('jwt token: ', token)
   res.send(JSON.stringify(token, null, 2))
 }
