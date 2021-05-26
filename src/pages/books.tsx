@@ -56,15 +56,15 @@ export default function Books () {
       };
 
   const onChangeForm = (e) => {
-      let item = this.state.item
+      let newitem = item
       if (e.target.name === 'name') {
-          item.name = e.target.value;
+          newitem.name = e.target.value;
       } else if (e.target.name === 'category') {
-          item.category = e.target.value;
+          newitem.category = e.target.value;
       } else if (e.target.name === 'isbn') {
-          item.isbn = e.target.value;
+          newitem.isbn = e.target.value;
       }
-      setItem(item);
+      setItem(newitem);
   }
 
   return (
@@ -88,6 +88,7 @@ export default function Books () {
                   onChangeForm={onChangeForm}
                   createItem={createItem}
                   type={type}
+                  getAllItems={handleClick}
                   />
               {}
   {/*  <BookManager/>*/}

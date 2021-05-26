@@ -22,8 +22,7 @@ server.set("port", port)
 const http = createServer(server);
 
 const ws = initws(http,IOport)
-//console.log('ws: ', ws)
-//const io = getws()
+
 
 ws.io.on("connection", (socket: Socket) => {  
   console.log('connection in server: ', socket.id)

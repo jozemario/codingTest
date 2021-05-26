@@ -17,7 +17,7 @@ export const ItemList = ({items,type,numberOfItems,getAllItems}) => {
               <tr key = {index} className={index%2 === 0?'odd':'even'}>
                   {/*<td>{index + 1}</td>*/}
                   {Object.keys(item).map(key => (
-                    <td>{item[key]}</td>
+                    <td key={key}>{item[key]}</td>
                     ))}
                  {/* <td>{item.name}</td>
                   <td>{item.category}</td>*/}

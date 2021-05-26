@@ -5,6 +5,7 @@ export async function getAllItems(type) {
 }
 
 export async function createItem(data,type) {
+	console.log('createItem: ',data,type)
     const response = await fetch(`/api/private/${type}`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},

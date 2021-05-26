@@ -55,17 +55,17 @@ export default function Categories () {
       };
 
   const onChangeForm = (e) => {
-      let item = this.state.item
+      let newitem = item
       if (e.target.name === 'name') {
-          item.name = e.target.value;
+          newitem.name = e.target.value;
       } else if (e.target.name === 'pass') {
-          item.pass = e.target.value;
+          newitem.pass = e.target.value;
       } else if (e.target.name === 'image') {
-          item.image = e.target.value;
+          newitem.image = e.target.value;
       }else if (e.target.name === 'email') {
-          item.email = e.target.value;
+          newitem.email = e.target.value;
       }
-      setItem(item);
+      setItem(newitem);
   }
 
   return (
@@ -89,6 +89,8 @@ export default function Categories () {
                   onChangeForm={onChangeForm}
                   createItem={createItem}
                   type={type}
+                  getAllItems={handleClick}
+
                   />
               {}
   {/*  <BookManager/>*/}

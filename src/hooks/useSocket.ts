@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import io from 'socket.io-client'
 
 
-const socket = io(process.env.SOCKETIO_URL, 
+const socket = io('http://localhost:3001',//process.env.SOCKETIO_URL, 
           //{ transports:['polling'], 
           { transports:['websocket'],
           auth: {

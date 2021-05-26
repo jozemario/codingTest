@@ -70,20 +70,23 @@ export async function findItem({ searchString, type, field }) {
 
 
 export async function createItem({ item, type }) {
+    console.log('createItem: ', item,type)
     //const role = 'user';
     switch (type) {
       case "books":
+                  console.log('createModel books: ', item)
                   const bookItem = {
                             id: uuidv4(),
                             createdAt: moment().format( 'YYYY-MM-DD HH:mm:ss'),
                             name:item.name,
-                            category:item.category
+                            category:item.category,
+                            isbn:item.isbn
                             
                         };  
                    try {
                         const result = await excuteQuery({
-                            query: `INSERT INTO ${type} (id, created_at, name, category) VALUES(?, ?, ?, ?)`,
-                            values: [bookItem.id, bookItem.createdAt.toString(), bookItem.name, bookItem.category],
+                            query: `INSERT INTO ${type} (id, created_at, name, category, isbn) VALUES(?, ?, ?, ?,?)`,
+                            values: [bookItem.id, bookItem.createdAt.toString(), bookItem.name, bookItem.category,bookItem.isbn],
                         });
                         console.log( result );
                         } 
@@ -127,8 +130,10 @@ export default async function handler(
 
   const session = await getSession({ req })
 
-  const { type } = req.query
   const { method } = req
+  console.log('/api/private/ ',method)
+  const { type } = req.query
+  //const { method } = req
 
   //const {
   //  query: { id, name },
@@ -143,9 +148,10 @@ export default async function handler(
   //const token = await getToken({ req, secret,encryption })
   if (session){
     console.log('getSession: ',session.user)
+    console.log('User Level: ',session.user.email==process.env.ADMIN? 'ADMIN':'USER')
+
   }
   
-  //console.log('getToken: ',token.user)
 
 
 
@@ -175,12 +181,13 @@ export default async function handler(
                         break
                       case 'POST':
                         // Create data in yourdatabase
-                        const resultPost = await createItem({item:req.body,type:type})
+                        console.log('Create data in yourdatabase: ', req.body,type[0])
+                        const resultPost = await createItem({item:req.body.item,type:type[0]})
                         res.status(200).json(resultPost) ;
                         break
                       case 'PUT':
                         // Update or create data in your database
-                        const resultPut = await createItem({item:req.body,type:type})
+                        const resultPut = await createItem({item:req.body.item,type:type[0]})
                         res.status(200).json(resultPut) ;
                         break
                       case 'DELETE':
