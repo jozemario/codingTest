@@ -211,4 +211,75 @@ pm2
 
 pm2 start npm --name "codingtest" -- start
 
-  ----------
+------------
+
+Ts.ED Framework
+for Node.js and TypeScript
+
+Build your awesome server-side application
+
+
+npm install --save-dev typescript @types/express
+$ npm install --save @tsed/core @tsed/di @tsed/common @tsed/schema @tsed/json-mapper @tsed/exceptions @tsed/platform-express @types/node @types/multer
+
+
+---------------------------------
+Installation
+from npm
+
+npm install tor-request
+from source
+
+git clone https://github.com/talmobi/tor-request
+cd tor-request
+npm install
+Requirements
+A Tor client.
+
+Either run it yourself locally (recommended) or specify the address for a publically available one.
+
+Tor is available for a multitude of systems.
+
+On Debian/Ubuntu you can install and run a relatively up to date Tor with.
+
+apt-get install tor # should auto run as daemon after install 
+Misc Linux Command for running Tor as daemon --RunAsDaemon 1 thanks @knoxcard
+
+/usr/bin/tor --RunAsDaemon 1
+On OSX you can install with homebrew
+
+brew install tor
+tor # run tor 
+-----------------
+Open /etc/tor/torrc file with your preferred editor and add the next lines in the end of the file.
+
+# Open 4 SOCKS ports, each providing a new Tor circuit.
+SocksPort 9050
+SocksPort 9052
+SocksPort 9053
+SocksPort 9054
+
+
+----in aws
+sudo apt-get install tor
+sudo nano /etc/tor/torrc
+# Open 4 SOCKS ports, each providing a new Tor circuit.
+SocksPort 9050
+SocksPort 9052
+SocksPort 9053
+SocksPort 9054
+sudo /etc/init.d/tor restart
+
+-----in macos
+To have launchd start tor now and restart at login:
+  brew services start tor
+Or, if you don't want/need a background service you can just run:
+  tor
+
+  /usr/local/etc/tor/torrc
+
+
+  Misc Linux Command for running Tor as daemon --RunAsDaemon 1 thanks @knoxcard
+
+/usr/local/bin/tor --RunAsDaemon 1
+
