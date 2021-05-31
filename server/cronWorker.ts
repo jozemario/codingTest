@@ -31,7 +31,7 @@ const resolution = {
 }
 
 const args = [
-  '--proxy-server=socks5://127.0.0.1:'+ports[getRandomInt(0,4)],
+  //'--proxy-server=socks5://127.0.0.1:'+ports[getRandomInt(0,4)],//enable only if you use tor proxy
   '--disable-gpu',
   `--window-size=${ resolution.x },${ resolution.y }`,
   '--no-sandbox',

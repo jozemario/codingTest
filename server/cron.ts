@@ -92,7 +92,7 @@ export async function createItem({ item, type }) {
 
 
 
-cron.schedule('0 */5 * * *', () => {
+cron.schedule('0 */8 * * *', () => {
   console.log('running a task every 1 minute');
 
 	main();  
@@ -166,7 +166,7 @@ try {
   
   //const posts: ICategory[] = postList.filter((post: ICategory) => post.id !== id)
 
-  const source:ICategory[] = categories.slice(0, 2);
+  const source:ICategory[] = categories//.slice(0, 2);
   const searchs = source.map(category => category.name )
   console.log('scrapper searchs: ', searchs)
 
@@ -371,7 +371,7 @@ async function main() {
 
 
 
-main();
+//main();
 
 function getBooksFromAmazon(category) {
   return new Promise((resolve, reject) => {
