@@ -97,8 +97,8 @@ cron.schedule('0 */8 * * *', () => {
 
 	main();  
 
-},
-{ scheduled: true, timezone: 'America/Costa_Rica'}
+}/*,
+{ scheduled: true, timezone: 'America/Costa_Rica'}*/
 );
 
 /*export async function findDetails({ port,item, type,category }) {
