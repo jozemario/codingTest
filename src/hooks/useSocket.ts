@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import io from 'socket.io-client'
 
-
-const socket = io('http://localhost:3001',//process.env.SOCKETIO_URL, 
+console.log('SocketURL: ', process.env.socketURL)
+const socket = io(process.env.socketURL, 
           //{ transports:['polling'], 
           { transports:['websocket'],
           auth: {

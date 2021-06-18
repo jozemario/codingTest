@@ -2,13 +2,7 @@ import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 //import Adapters from "next-auth/adapters"
 
-
-
 import axios from 'axios'
-
-
-
-
 
 const sendPostRequest = async (creds) => {
     try {

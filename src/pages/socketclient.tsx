@@ -17,6 +17,7 @@ export default function Page() {
   // This is possible because of the shared context configured in `_app.js` that
   // is used by `useSession()`.
   const [session, loading] = useSession()
+  //console.log('session: ', session)
   
   const [field, setField] = useState('')
   const [newMessage, setNewMessage] = useState(0)

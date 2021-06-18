@@ -1,72 +1,70 @@
-import {createServer} from 'http';
-import express, { Request, Response } from "express";
-import { Socket } from "socket.io";
+import express, { Express, Request, Response } from 'express';
+import * as http from 'http';
+import next, { NextApiHandler } from 'next';
+import * as socketio from 'socket.io';
+import { initws,getws } from './socket'
 
 import * as bodyParser from "body-parser";
 import compress from "compression";
 import cookieParser from 'cookie-parser';
 import methodOverride from "method-override";
 
-import next from "next";
 import "./env"
-import routes from "./routes";
-import "./cron";
 
-import { initws,getws } from './socket'
+const port: number = parseInt(process.env.PORT || '3000', 10);
+const dev: boolean = process.env.NODE_ENV !== 'production';
+const nextApp = next({ dev });
+const nextHandler: NextApiHandler = nextApp.getRequestHandler();
 
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
-const handle = app.getRequestHandler();
-const port = process.env.PORT || 3000;
-//socketio
-const IOport = process.env.IOPORT || 3001;
-const server = express();
-server.set("port", port)
-//create a server and pass our Express app to it.
-const http = createServer(server);
-const ws = initws(http,IOport)
-ws.io.on("connection", (socket: Socket) => {  
-  console.log('connection in server: ', socket.id)
-})
-//socketio
-    ws.io.on('connection', (socket: Socket) => {
-        console.log('connection');
-        socket.emit('status', 'Hello from Socket.io');
+const app: Express = express();
+const server: http.Server = http.createServer(app);
+const io = initws().io;//new socketio.Server();
 
-        socket.on('disconnect', () => {
-            console.log('client disconnected');
-        })
-    });
-    //socketio
+io.attach(server,{
+    pingInterval: 2000,
+      pingTimeout: 5000
+  }); 
 import "./routes/socketroutes";
-//socketio
 
 console.log(`Current NODE_ENV is ${process.env.NODE_ENV}`);
 console.log(`ADMIN is ${process.env.ADMIN}`);
 
-
+import routes from "./routes";
+import "./cron";
 
 (async () => {
-  try {
-    await app.prepare();
+    try {
+        await nextApp.prepare();
+        app
+        .use(cookieParser())
+        .use(compress({}))
+        .use(methodOverride())
+        .use(bodyParser.json())
+        .use(bodyParser.urlencoded({ extended: true }))
+        .use("/api", routes)
 
-    server.use(cookieParser())
-          .use(compress({}))
-          .use(methodOverride())
-          .use(bodyParser.json())
-          .use(bodyParser.urlencoded({ extended: true }))
-          .use("/api", routes)
-          .all("*", (req: Request, res: Response) => { return handle(req, res); })
-          .listen(port, (err?: any) => {
-      if (err) throw err;
-      console.log(`> Ready on localhost:${port} - env ${process.env.NODE_ENV}`);
-    });
-  } catch (e) {
+        app.get('/hello', async (_: Request, res: Response) => {
+            res.send('Hello World')
+        });
+
+        io.on('connection', (socket: socketio.Socket) => {
+            console.log('connection in server: ', socket.id)
+            socket.emit('status', 'Hello from Socket.io');
+
+            socket.on('disconnect', () => {
+                console.log('client disconnected');
+            })
+        });
+
+        app.all('*', (req: any, res: any) => nextHandler(req, res));
+
+        server.listen(port, (err?: any) => {
+                if (err) throw err;
+                console.log(`> Ready on http://localhost:${port} - env ${process.env.NODE_ENV}`);
+            });
+
+    } catch (e) {
     console.error(e);
     process.exit(1);
-  }
+    }
 })();
-
-
-
-

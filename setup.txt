@@ -283,3 +283,12 @@ Or, if you don't want/need a background service you can just run:
 
 /usr/local/bin/tor --RunAsDaemon 1
 
+-------------
+Heroku to work with puppeter pending try to work with Tor
+https://buildpack-registry.s3.amazonaws.com/buildpacks/jontewks/puppeteer.tgz
+
+
+nodejs v14.15.5
+npm run dev #development
+npm run build #production build
+npm start #production
