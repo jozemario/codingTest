@@ -374,3 +374,5 @@ npm install redis --save
 docker compose -f docker-compose-redis.yml -f docker-compose-dev.yml build
 docker compose -f docker-compose-redis.yml -f docker-compose-dev.yml up
 docker compose -f docker-compose-redis.yml -f docker-compose-dev.yml down
+
+Just testing github hooks
