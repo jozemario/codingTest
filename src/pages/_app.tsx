@@ -1,10 +1,11 @@
+import "reflect-metadata"
 /*import '../styles/index.css'
 
 export default function MyApp({ Component, pageProps }) {
 	return <Component {...pageProps} />
 }*/
 // add bootstrap css 
-
+//temporary disabled to test tailwind
 import 'bootstrap/dist/css/bootstrap.css'
 
 

@@ -1,6 +1,6 @@
 import * as cron from 'node-cron'
 import moment from 'moment';
-import excuteQuery from './db';
+import excuteQuery from '../db';
 import { v4 as uuidv4 } from 'uuid';
 
 //import * as puppeteer from 'puppeteer';
@@ -14,7 +14,7 @@ import { from,of,pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
-import ICategory from "./models/Category";
+import ICategory from "../models/Category";
 
 const ports = [
     '9050',

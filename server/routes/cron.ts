@@ -1,6 +1,6 @@
 import * as cron from 'node-cron'
 import moment from 'moment';
-import excuteQuery from './db';
+import excuteQuery from '../db';
 import { v4 as uuidv4 } from 'uuid';
 
 //import * as puppeteer from 'puppeteer';
@@ -14,7 +14,7 @@ import { from,of,pipe } from 'rxjs';
 import { map, } from 'rxjs/operators';
 
 
-import ICategory from "./models/Category";
+import ICategory from "../models/Category";
 
 import { fork } from 'child_process';
 import parallelLimit from 'async/parallelLimit';
@@ -375,7 +375,7 @@ async function main() {
 
 function getBooksFromAmazon(category) {
   return new Promise((resolve, reject) => {
-    const child = fork('./server/cronWorker.ts');
+    const child = fork('./server/routes/cronWorker.ts');
     child.send(category);
     child.on('message', (result) => {
       resolve(result)
@@ -388,7 +388,7 @@ function getBooksFromAmazon(category) {
 
 function getDetailBooksFromAmazon(product) {
   return new Promise((resolve, reject) => {
-    const child = fork('./server/cronSubWorker.ts');
+    const child = fork('./server/routes/cronSubWorker.ts');
     child.send(product);
     child.on('message', (result) => {
       resolve(result)

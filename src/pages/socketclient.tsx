@@ -31,6 +31,8 @@ export default function Page() {
     setNewMessage(newMessage => newMessage + 1)
   })
 
+
+
   const handleSubmit = event => {
     event.preventDefault()
 
@@ -46,11 +48,38 @@ export default function Page() {
     setMessages(messages => [...messages, message])
   }
 
+  useSocket('startedScheduler', (data) => {
+    console.log('startedScheduler: ', data)
+  })
+
+  useSocket('connect_error', (data) => {
+    console.log('connect_error: ', data)
+  })
+
+  
+
+  const initScheduler = event => {
+    event.preventDefault()
+
+    // send object to WS server
+    socket.emit('initScheduler', 'initScheduler')
+
+  }
+
   return (
     <Layout>
       <h1>SSR SocketIO Client Echo</h1>
       <main>
       <div>
+      <button 
+        type="button" 
+        onClick= { (e) => {
+            initScheduler(e);
+            } 
+          } 
+        className="btn btn-info">Init Scheduler
+      </button>
+          
         <Link href="/socketclient">
           <a>{'Chat One'}</a>
         </Link>

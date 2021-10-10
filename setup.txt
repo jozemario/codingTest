@@ -75,7 +75,7 @@ Breakdown:
 build:server: Build server code to dist directory
 build:next: Build the Next.js application
 build: Run both build:server and build:next
-start: Run the server. It runs node dist/index.js instead of next start because now we let experss handle the server.
+start: Run the server. It runs node dist/index.js instead of next start because now we let express handle the server.
 Let’s build all the stuff by running npm run build and you should see the result like this:
 
 npm run build
@@ -292,3 +292,85 @@ nodejs v14.15.5
 npm run dev #development
 npm run build #production build
 npm start #production
+git add --all
+git commit -m "Fixed socket io singleton srv on same port "
+git push -u origin master
+
+
+-----------
+npm install tailwindcss --save
+npx tailwind init --full
+Created Tailwind CSS config file: tailwind.config.js
+We have two more things to do before wrapping up our TailwindCSS setup. First, create a postcss.config.js file and add the following content
+
+module.exports = {
+  plugins: ["tailwindcss"]
+}
+add the following content:
+Create a styles.css file at the root level of your project and add the following content:
+/* styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+create a _app.js file in your pages directory and add the following content
+
+import '../styles.css'
+export default function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+--------------------------
+
+connect ORM TypeORM
+-------------------
+npm install --save typeorm pg reflect-metadata
+npm install --save @babel/plugin-proposal-decorators babel-plugin-transform-typescript-metadata @babel/core
+npm install --save-dev @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators babel-plugin-transform-typescript-metadata
+
+----------
+
+Very good
+<tbody>
+    {rows.map((row) => {
+        return <ObjectRow key={row.uniqueId} />;
+    })}
+</tbody>
+This is arguably the best approach because it uses a property that is unique for each item in the dataset. For example, if rows contains data fetched from a database, one could use the table's Primary Key (which typically is an auto-incrementing number).
+
+The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys
+
+-----------
+SWR is a React Hooks library for data fetching.
+The name “SWR” is derived from stale-while-revalidate, a cache invalidation strategy popularized by HTTP RFC 5861. SWR first returns the data from cache (stale), then sends the request (revalidate), and finally comes with the up-to-date data again.
+
+With just one hook, you can significantly simplify the data fetching logic in your project. And it also covered in all aspects of speed, correctness, and stability to help you build better experiences:
+
+Fast, lightweight and reusable data fetching
+Transport and protocol agnostic
+Built-in cache and request deduplication
+Real-time experience
+Revalidation on focus
+Revalidation on network recovery
+Polling
+Pagination and scroll position recovery
+SSR and SSG
+Local mutation (Optimistic UI)
+Built-in smart error retry
+TypeScript
+React Suspense
+React Native
+...and a lot more.
+
+With SWR, components will get a stream of data updates constantly and automatically. Thus, the UI will be always fast and reactive.
+
+npm install swr --save
+
+---------
+redis cache
+npm install next-redis-cache --save
+npm install --save @types/redis
+npm install redis --save
+
+---------------
+docker compose -f docker-compose-redis.yml -f docker-compose-dev.yml build
+docker compose -f docker-compose-redis.yml -f docker-compose-dev.yml up
+docker compose -f docker-compose-redis.yml -f docker-compose-dev.yml down

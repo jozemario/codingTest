@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  web:
+    container_name: nextjs_app
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./docker/prod/Dockerfile
+    ports:
+      - 3001:3000
+    volumes:
+      - .:/home/app
+    environment:
+      NODE_ENV: production

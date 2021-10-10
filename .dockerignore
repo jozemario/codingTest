@@ -1,0 +1,7 @@
+dist
+node_modules/
+.idea
+.next
+.vscode
+package-lock.json
+.env

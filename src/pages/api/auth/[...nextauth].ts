@@ -87,7 +87,7 @@ const providers = [
 
 const callbacks = {
   async jwt(token, user) {
-    console.log('callbacks jwt',token, user);
+    //console.log('callbacks jwt',token, user);
     if (user) {
       token.accessToken = user.token
     }
@@ -96,7 +96,7 @@ const callbacks = {
   },
 
   async session(session, token) {
-    console.log('callbacks session',session, token);
+    //console.log('callbacks session',session, token);
     session.accessToken = token.accessToken
     return session
   },
@@ -107,7 +107,7 @@ const callbacks = {
    * @return {string}          URL the client will be redirect to
    */
   async redirect(url, baseUrl) {
-    console.log('callbacks redirect',url, baseUrl);
+    //console.log('callbacks redirect',url, baseUrl);
     return url.startsWith(baseUrl)
       ? url
       : baseUrl
@@ -237,7 +237,7 @@ const options = {
   async createUser(message) {console.log('event: ',message) /* user created */ },
   async updateUser(message) {console.log('event: ',message) /* user updated - e.g. their email was verified */ },
   async linkAccount(message) {console.log('event: ',message) /* account (e.g. Twitter) linked to a user */ },
-  async session(message) {console.log('event: ',message) /* session is active */ },
+  //async session(message) {console.log('event: ',message) /* session is active */ },
   async error(message) {console.log('event: ',message) /* error in authentication flow */ }
   },
  // theme: "light",
