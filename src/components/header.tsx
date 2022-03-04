@@ -1,17 +1,16 @@
-import Link from "next/link"
-import { signIn, signOut, useSession } from "next-auth/client"
-import styles from "../styles/header.module.css"
+import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/client";
+import styles from "../styles/header.module.css";
 
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 // The approach used in this component shows how to built a sign in and sign out
 // component that works on pages which support both client and server side
 // rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
-  const [session, loading] = useSession()
+  const [session, loading] = useSession();
 
-    const router = useRouter()
-
+  const router = useRouter();
 
   return (
     <header>
@@ -29,14 +28,13 @@ export default function Header() {
               <span className={styles.notSignedInText}>
                 You are not signed in
               </span>
-              
+
               <a
                 href={`/api/auth/signin`}
                 className={styles.buttonPrimary}
                 onClick={(e) => {
-                  e.preventDefault()
-                  signIn()
-                  
+                  e.preventDefault();
+                  signIn();
                 }}
               >
                 Sign in
@@ -58,8 +56,8 @@ export default function Header() {
                 href={`/api/auth/signout`}
                 className={styles.button}
                 onClick={(e) => {
-                  e.preventDefault()
-                  signOut()
+                  e.preventDefault();
+                  signOut();
                 }}
               >
                 Sign out
@@ -81,13 +79,18 @@ export default function Header() {
             </Link>
           </li>
           <li className={styles.navItem}>
-            <Link href="/server">
+            <Link href="/src/server">
               <a>SSR</a>
             </Link>
           </li>
           <li className={styles.navItem}>
             <Link href="/posts">
               <a>Posts</a>
+            </Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link href="/postsdb">
+              <a>SSR Posts DB ORM</a>
             </Link>
           </li>
           <li className={styles.navItem}>
@@ -128,5 +131,5 @@ export default function Header() {
         </ul>
       </nav>
     </header>
-  )
+  );
 }
