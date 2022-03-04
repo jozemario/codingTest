@@ -1,10 +1,10 @@
 import React from "react";
 
-import { useEffect } from 'react'
-import io from 'socket.io-client'
-import * as jwt from 'jsonwebtoken';
+import { useEffect } from "react";
+import io from "socket.io-client";
+import * as jwt from "jsonwebtoken";
 
-import {socket} from "../services/SocketService";
+import { socket } from "../services/SocketService";
 
 let token;
 //let socket;
@@ -66,18 +66,18 @@ let token;
   InitConnSocket()
 }) */
 
-
-
-
 export default function useSocket(eventName, cb) {
   useEffect(() => {
     //token = sessionStorage.getItem('token');
-    socket.on(eventName, cb)
+    socket.on(eventName, cb);
 
-    return function useSocketCleanup() {
-      socket.off(eventName, cb)
-    }
-  }, [eventName, cb])
+    // return function useSocketCleanup() {
+    //   socket.off(eventName, cb)
+    // }
+    return () => {
+      socket.off(eventName, cb);
+    };
+  }, [eventName, cb]);
 
-  return socket
+  return socket;
 }

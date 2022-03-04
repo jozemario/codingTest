@@ -3,16 +3,23 @@ import Providers from "next-auth/providers"
 //import Adapters from "next-auth/adapters"
 
 import axios from 'axios'
+const https = require("https");
 
 const sendPostRequest = async (creds) => {
-    try {
-        const resp = await axios.post(`${process.env.NEXT_URL}/api/login`, creds);
-        //console.log(resp.data);
-        return resp
-    } catch (err) {
-        // Handle Error Here
-        console.error('Error: ',err);
-    }
+  try {
+    const resp = await axios.post(
+      `${process.env.NEXT_URL}/api/login`,
+      creds,
+      new https.Agent({
+        rejectUnauthorized: false,
+      })
+    );
+    //console.log(resp.data);
+    return resp;
+  } catch (err) {
+    // Handle Error Here
+    console.error("Error: ", err);
+  }
 };
 
 export type Theme = "auto" | "dark" | "light"

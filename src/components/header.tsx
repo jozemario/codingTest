@@ -79,7 +79,7 @@ export default function Header() {
             </Link>
           </li>
           <li className={styles.navItem}>
-            <Link href="/server">
+            <Link href="/src/server">
               <a>SSR</a>
             </Link>
           </li>

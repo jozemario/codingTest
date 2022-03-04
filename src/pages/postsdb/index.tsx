@@ -74,7 +74,7 @@ export default function Page({
                 </tr>
               </thead>
               <tbody>
-                <PostList posts={posts} />
+                {/*<PostList posts={posts} />*/}
               </tbody>
             </table>
           </div>

@@ -42,7 +42,7 @@ export function Repo() {
 export default function Page({ fallback }) {
   return (
     <SWRConfig value={{ fallback }}>
-      <Repo />
+      {/*<Repo />*/}
     </SWRConfig>
   );
 }

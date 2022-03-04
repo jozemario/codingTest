@@ -4,4 +4,8 @@ node_modules/
 .next
 .vscode
 package-lock.json
+deploy/ingress.yaml
+deploy/dockerAuth.json
+deploy/variables.tf
+deploy/config
 .env

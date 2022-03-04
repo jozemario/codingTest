@@ -1,4 +1,4 @@
-FROM node:14.15.5 AS ui-build
+FROM node:16.13.0-slim AS ui-build
 WORKDIR /home/app
 COPY . /home/app/
 RUN cd /home/app/ && npm install && npm run build
