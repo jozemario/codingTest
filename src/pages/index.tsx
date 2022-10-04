@@ -3,7 +3,8 @@ import Layout from '../components/layout'
 export default function Page () {
   return (
     <Layout>
-      <h1>Talos Coding Test NextJs</h1>
+      {/* <h1>Talos Coding Test NextJs</h1> */}
+      <h1 className="m-4 text-center text-4xl text-red-500">Talos Coding Test NextJs</h1>
       <h1>Objective</h1>
       <p>
 
